@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "797091396728",
+    "project_id": "health-track-ff1b9",
+    "storage_bucket": "health-track-ff1b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:797091396728:android:cc590e6db6b019fa65c18d",
+        "android_client_info": {
+          "package_name": "com.flutter.health_track"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "797091396728-20gtcu9haku551jmllc7co390919sp4m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flutter.health_track",
+            "certificate_hash": "73be12f2afb96067b5edc09be93682ff3148115b"
+          }
+        },
+        {
+          "client_id": "797091396728-fpubr12mj05bo1bmprec3njb78gj9rbf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHoAycmosjFMvFpsx3spteP1feQECB0N8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "797091396728-fpubr12mj05bo1bmprec3njb78gj9rbf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
