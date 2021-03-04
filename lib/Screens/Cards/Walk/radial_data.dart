@@ -42,6 +42,7 @@ class _RadialGaugState extends State<RadialGaug> {
                 MarkerPointer(
                   value: widget.markervalue,
                   enableAnimation: true,
+                  enableDragging: false,
                   markerHeight: 34,
                   markerWidth: 34,
                   markerType: MarkerType.circle,

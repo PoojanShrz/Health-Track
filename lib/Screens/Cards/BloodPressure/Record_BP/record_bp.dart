@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_track/components/dashed_divider.dart';
 import 'package:health_track/components/outlined_box.dart';
 import 'package:health_track/constants.dart';
@@ -148,10 +149,13 @@ class _RecordBPState extends State<RecordBP> {
                   //     fontWeight: FontWeight.bold,
                   //   ),
                   // ),
-                  Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                    size: 45,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: FaIcon(
+                      FontAwesomeIcons.solidHeart,
+                      color: Colors.red,
+                      size: 45,
+                    ),
                   ),
                   Text(
                     _systolicvalue.toInt().toString(),

@@ -17,7 +17,7 @@ class PedometerCount extends StatefulWidget {
 class _PedometerCountState extends State<PedometerCount> {
   Stream<StepCount> _stepCountStream;
   Stream<PedestrianStatus> _pedestrianStatusStream;
-  String _status = '!rest!';
+  String _status = 'Rest';
   double _steps = 0.0;
 
   @override
@@ -28,31 +28,39 @@ class _PedometerCountState extends State<PedometerCount> {
 
   void onStepCount(StepCount event) {
     print(event);
-    setState(() {
-      _steps = event.steps;
-    });
+    if (mounted == true) {
+      setState(() {
+        _steps = event.steps;
+      });
+    }
   }
 
   void onPedestrianStatusChanged(PedestrianStatus event) {
     print(event);
-    setState(() {
-      _status = event.status;
-    });
+    if (mounted == true) {
+      setState(() {
+        _status = event.status;
+      });
+    }
   }
 
   void onPedestrianStatusError(error) {
     print('onPedestrianStatusError: $error');
-    setState(() {
-      _status = 'Pedestrian Status not available';
-    });
+    if (mounted == true) {
+      setState(() {
+        _status = 'Pedestrian Status not available';
+      });
+    }
     print(_status);
   }
 
   void onStepCountError(error) {
     print('onStepCountError: $error');
-    setState(() {
-      _steps = 'Step Count not available' as double;
-    });
+    if (mounted == true) {
+      setState(() {
+        _steps = 'Step Count not available' as double;
+      });
+    }
   }
 
   void initPlatformState() {
@@ -68,9 +76,11 @@ class _PedometerCountState extends State<PedometerCount> {
   }
 
   void onVolumeChanged(double value) {
-    setState(() {
-      _steps = value;
-    });
+    if (mounted == true) {
+      setState(() {
+        _steps = value;
+      });
+    }
   }
 
   @override
@@ -100,13 +110,15 @@ class _PedometerCountState extends State<PedometerCount> {
                   text: "Pedometer",
                   textStyle: TextStyle(color: kDashboardPurple, fontSize: 40),
                 ),
+                enableLoadingAnimation: true,
+                animationDuration: 2000,
                 axes: <RadialAxis>[
                   RadialAxis(
                       minimum: 0,
                       maximum: 10000,
                       radiusFactor: 0.8,
-                      startAngle: 270,
-                      endAngle: 270,
+                      startAngle: 90,
+                      endAngle: 90,
                       showLabels: false,
                       showTicks: false,
                       axisLineStyle: AxisLineStyle(
@@ -120,7 +132,6 @@ class _PedometerCountState extends State<PedometerCount> {
                             onValueChanged: onVolumeChanged,
                             enableAnimation: true,
                             animationDuration: 3000,
-                            enableDragging: true,
                             cornerStyle: CornerStyle.bothCurve,
                             sizeUnit: GaugeSizeUnit.logicalPixel,
                             gradient: const SweepGradient(colors: <Color>[
@@ -134,7 +145,7 @@ class _PedometerCountState extends State<PedometerCount> {
                           value: _steps,
                           onValueChanged: onVolumeChanged,
                           enableAnimation: true,
-                          enableDragging: true,
+                          enableDragging: false,
                           animationDuration: 3000,
                           markerHeight: 34,
                           markerWidth: 34,
@@ -146,7 +157,7 @@ class _PedometerCountState extends State<PedometerCount> {
                       annotations: <GaugeAnnotation>[
                         GaugeAnnotation(
                           axisValue: 0.2,
-                          positionFactor: 0.1,
+                          positionFactor: 0,
                           widget: Text(
                             _steps.toInt().toString(),
                             textAlign: TextAlign.center,

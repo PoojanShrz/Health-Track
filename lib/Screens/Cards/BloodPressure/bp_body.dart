@@ -65,7 +65,6 @@ class _BPBodyState extends State<BPBody> {
                         return Dismissible(
                           onDismissed: (DismissDirection direction) {
                             setState(() {
-                              // SnackBar(content: Text('Deleted'));
                               data.removeAt(index);
                             });
                           },

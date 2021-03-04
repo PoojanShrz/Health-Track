@@ -14,14 +14,6 @@ class FlexibleAppBar extends StatelessWidget {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     return Container(
       decoration: BoxDecoration(
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: Colors.grey.withOpacity(0.5),
-        //     spreadRadius: 5,
-        //     blurRadius: 15.0,
-        //     offset: Offset(0.0, 0.75),
-        //   ),
-        // ],
         color: kDashboardPurple,
         borderRadius: BorderRadius.only(
           topLeft: Radius.zero,

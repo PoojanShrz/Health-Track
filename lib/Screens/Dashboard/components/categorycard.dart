@@ -1,14 +1,13 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:health_track/Screens/Cards/Walk/radial_data.dart';
-// import 'package:health_track/Screens/Dashboard/components/category.dart';
-// import 'package:health_track/Screens/Dashboard/components/category.dart';
 import 'package:health_track/constants.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class CategoryCard extends StatefulWidget {
   final String type;
   final String img;
   final Function press;
+  final Widget child;
   // final CategoryData categoryData;
 
   const CategoryCard({
@@ -16,6 +15,7 @@ class CategoryCard extends StatefulWidget {
     this.type,
     this.img,
     this.press,
+    this.child,
   }) : super(key: key);
 
   @override
@@ -25,18 +25,21 @@ class CategoryCard extends StatefulWidget {
 class _CategoryCardState extends State<CategoryCard> {
   @override
   Widget build(BuildContext context) {
+    var child;
     return Card(
       clipBehavior: Clip.antiAlias,
-      elevation: 10,
+      elevation: 7,
+
       shadowColor: kDashboardPurple,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
+        borderRadius: BorderRadius.circular(30.0),
       ),
       // for on clickabe function
       child: InkWell(
         onTap: widget.press,
         child: Container(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               ListTile(
                 leading: Text(
@@ -46,6 +49,14 @@ class _CategoryCardState extends State<CategoryCard> {
                 trailing: Image.asset(
                   widget.img,
                   scale: 2.5,
+                ),
+              ),
+              Flexible(
+                child: Container(
+                  color: Colors.transparent,
+                  padding: EdgeInsets.all(15),
+                  constraints: BoxConstraints.tightFor(width: 200),
+                  child: widget.child,
                 ),
               ),
             ],
