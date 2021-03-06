@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:health_track/Screens/Login/login.dart';
 import 'package:health_track/Screens/Login/login_body.dart';
+import 'package:health_track/Screens/Profile/profile_screen.dart';
 import 'package:health_track/components/buttons.dart';
 import 'package:health_track/components/dashed_divider.dart';
 import 'package:health_track/components/outlined_box.dart';
@@ -41,11 +42,21 @@ class _ProfileBodyState extends State<ProfileBody> {
                   ),
                   Container(
                     child: Padding(
-                      padding: EdgeInsets.only(right: 25.0),
-                      child: Image.asset(
-                        "assets/images/trophy.png",
-                        height: 40,
-                        width: 40,
+                      padding: const EdgeInsets.all(10.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProfileScreen(),
+                            ),
+                          );
+                        },
+                        child: Image.asset(
+                          "assets/images/trophy.png",
+                          height: 35,
+                          width: 35,
+                        ),
                       ),
                     ),
                   ),
@@ -55,18 +66,18 @@ class _ProfileBodyState extends State<ProfileBody> {
             Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
                     backgroundImage: NetworkImage(imageUrl),
-                    radius: 70,
+                    radius: 50,
                   ),
                 ),
               ],
             ),
             SizedBox(height: 10.0),
             Container(
-              height: MediaQuery.of(context).size.height * 0.69,
+              height: MediaQuery.of(context).size.height * 0.72,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -82,10 +93,10 @@ class _ProfileBodyState extends State<ProfileBody> {
                     // mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: Text(
                           name,
-                          style: TextStyle(color: Colors.black, fontSize: 24),
+                          style: TextStyle(color: Colors.black, fontSize: 20),
                         ),
                       ),
                       Padding(
@@ -93,25 +104,25 @@ class _ProfileBodyState extends State<ProfileBody> {
                         child: OutlinedBox(
                           text: email,
                           color: Colors.black,
-                          fontsize: 20,
+                          fontsize: 17,
                           press: () {},
                         ),
                       ),
                       DashedDivider(
                         text: 'User Information',
                         color: Colors.grey[700],
-                        fontsize: 17,
+                        fontsize: 15,
                       ),
                       OutlinedBox(
                         text: "Gender",
                         color: Colors.black,
-                        fontsize: 20,
+                        fontsize: 17,
                         press: () {},
                       ),
                       OutlinedBox(
                         text: "Date of Birth",
                         color: Colors.black,
-                        fontsize: 20,
+                        fontsize: 17,
                         press: () {},
                       ),
                     ],

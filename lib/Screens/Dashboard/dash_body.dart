@@ -4,16 +4,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_track/Screens/Cards/BloodGlucose/bloodglucose.dart';
 import 'package:health_track/Screens/Cards/BloodPressure/bp_screen.dart';
 import 'package:health_track/Screens/Cards/Height/height.dart';
-import 'package:health_track/Screens/Cards/Walk/radial_data.dart';
 import 'package:health_track/Screens/Cards/Walk/walk.dart';
 import 'package:health_track/Screens/Dashboard/components/appbar.dart';
 import 'package:health_track/Screens/Dashboard/components/categorycard.dart';
 import 'package:health_track/Screens/Dashboard/components/flexible_appbar.dart';
 import 'package:health_track/constants.dart';
-import 'package:intl/intl.dart';
 import 'package:sliver_tools/sliver_tools.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
-
 import 'components/pedogauge.dart';
 
 class Dash extends StatefulWidget {
@@ -31,7 +27,7 @@ class _DashState extends State<Dash> {
           physics: AlwaysScrollableScrollPhysics(),
           slivers: [
             SliverStack(
-              insetOnOverlap: true,
+              // insetOnOverlap: true,
               children: [
                 SliverAppBar(
                   backgroundColor: kDashboardPurple,
@@ -40,16 +36,16 @@ class _DashState extends State<Dash> {
                   forceElevated: true,
                   elevation: 10,
                   collapsedHeight: 140,
-                  // pinned: true,
+                  pinned: true,
                   floating: true,
-                  // snap: true,
+                  snap: true,
                   expandedHeight: 190.0,
                   flexibleSpace: FlexibleSpaceBar(
                     background: FlexibleAppBar(),
                   ),
                 ),
                 SliverPadding(
-                  padding: const EdgeInsets.only(top: 130, right: 25, left: 25),
+                  padding: const EdgeInsets.only(top: 140, right: 25, left: 25),
                   sliver: SliverStaggeredGrid.count(
                     crossAxisCount: 2,
                     children: <Widget>[

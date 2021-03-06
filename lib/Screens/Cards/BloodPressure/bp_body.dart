@@ -55,8 +55,17 @@ class _BPBodyState extends State<BPBody> {
               primary: false,
               padding: EdgeInsets.only(left: 25, right: 20),
               children: [
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      "Records",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ),
                 Padding(
-                  padding: EdgeInsets.only(top: 45),
+                  padding: EdgeInsets.only(top: 15),
                   child: Container(
                     height: MediaQuery.of(context).size.height - 270.0,
                     child: ListView.builder(

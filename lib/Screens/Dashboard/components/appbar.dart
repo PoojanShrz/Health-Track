@@ -59,10 +59,20 @@ class MyAppBar extends StatelessWidget {
           Container(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Image.asset(
-                "assets/images/trophy.png",
-                height: 40,
-                width: 40,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProfileScreen(),
+                    ),
+                  );
+                },
+                child: Image.asset(
+                  "assets/images/trophy.png",
+                  height: 35,
+                  width: 35,
+                ),
               ),
             ),
           ),

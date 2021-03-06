@@ -26,7 +26,7 @@ class LoginBody extends StatefulWidget {
 class _LoginBodyState extends State<LoginBody> {
   String _email, _password;
   final auth = FirebaseAuth.instance;
-  // var name, password, token;
+  var email, password, token;
 
   @override
   Widget build(BuildContext context) {
@@ -66,25 +66,25 @@ class _LoginBodyState extends State<LoginBody> {
               RoundedButton(
                 text: "LOGIN",
                 press: () {
-                  // AuthService().login(name, password).then((value) {
-                  //   if (value.data['success']) {
-                  //     token = value.data['token'];
-                  //     Fluttertoast.showToast(
-                  //         msg: 'Logged in Successfully',
-                  //         toastLength: Toast.LENGTH_SHORT,
-                  //         gravity: ToastGravity.BOTTOM,
-                  //         backgroundColor: Colors.green,
-                  //         textColor: Colors.white,
-                  //         fontSize: 16.0);
-                  //     //Navigates to the Dashboard Screen after valid authentication
-                  //     Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //         builder: (context) => DashboardScreen(),
-                  //       ),
-                  //     );
-                  //   }
-                  // });
+                  AuthService().login(email, password).then((value) {
+                    if (value.data['success']) {
+                      token = value.data['token'];
+                      Fluttertoast.showToast(
+                          msg: 'Logged in Successfully',
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: Colors.green,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+                      //Navigates to the Dashboard Screen after valid authentication
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DashboardScreen(),
+                        ),
+                      );
+                    }
+                  });
                 },
               ),
               SizedBox(height: size.height * 0.01),

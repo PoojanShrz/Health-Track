@@ -1,14 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:health_track/Screens/Login/login.dart';
 
 class AuthService {
   Dio dio = new Dio();
 
-  login(name, password) async {
+  login(email, password) async {
     try {
       return await dio.post('https://health-track1.herokuapp.com/authenticate',
-          data: {"name": name, "password": password},
+          data: {"email": email, "password": password},
           options: Options(contentType: Headers.formUrlEncodedContentType));
     } on DioError catch (e) {
       Fluttertoast.showToast(
@@ -23,7 +24,7 @@ class AuthService {
 
   addUser(name, password) async {
     return await dio.post('https://health-track1.herokuapp.com/addUser',
-        data: {"name": name, "password": password},
+        data: {"email": email, "password": password},
         options: Options(contentType: Headers.formUrlEncodedContentType));
   }
 }

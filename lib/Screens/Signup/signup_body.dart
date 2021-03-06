@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:health_track/Screens/Login/login.dart';
 import 'package:health_track/Screens/Login/login_screen.dart';
 import 'package:health_track/Screens/Signup/components/background.dart';
 import 'package:health_track/Screens/Signup/components/or_divider.dart';
@@ -17,7 +18,7 @@ class SignUpBody extends StatefulWidget {
 }
 
 class _SignUpBodyState extends State<SignUpBody> {
-  var name, password;
+  var email, password;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class _SignUpBodyState extends State<SignUpBody> {
             RoundedInputField(
               hintText: "Email",
               onChanged: (value) {
-                name = value;
+                email = value;
               },
             ),
             RoundedPasswordField(
@@ -51,7 +52,7 @@ class _SignUpBodyState extends State<SignUpBody> {
             RoundedButton(
               text: "SIGN UP",
               press: () {
-                AuthService().addUser(name, password).then((value) {
+                AuthService().addUser(email, password).then((value) {
                   if (value.data['success']) {
                     Fluttertoast.showToast(
                         msg: value.data['msg'],
