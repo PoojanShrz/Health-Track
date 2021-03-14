@@ -18,10 +18,13 @@ class RoundedInputField extends StatefulWidget {
 }
 
 class _RoundedInputFieldState extends State<RoundedInputField> {
+  TextEditingController _emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextFormField(
+        controller: _emailController,
         onChanged: widget.onChanged,
         decoration: InputDecoration(
           icon: Icon(

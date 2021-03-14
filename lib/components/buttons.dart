@@ -24,8 +24,9 @@ class FNButton extends StatelessWidget {
       width: size.width * 0.7,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
-        child: ElevatedButton(
-          // padding: EdgeInsets.symmetric(vertical: 15),
+        child: FlatButton(
+          padding: EdgeInsets.symmetric(vertical: 15),
+          color: color,
           onPressed: press,
           child: Text(
             txt,

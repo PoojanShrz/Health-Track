@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_track/Screens/Leaderboard/leaderboard.dart';
 import 'package:health_track/Screens/Login/login.dart';
 import 'package:health_track/Screens/Profile/profile_screen.dart';
 import 'package:health_track/constants.dart';
@@ -68,10 +69,19 @@ class MyAppBar extends StatelessWidget {
                     ),
                   );
                 },
-                child: Image.asset(
-                  "assets/images/trophy.png",
-                  height: 35,
-                  width: 35,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Leaderboard(),
+                        ));
+                  },
+                  child: Image.asset(
+                    "assets/images/trophy.png",
+                    height: 35,
+                    width: 35,
+                  ),
                 ),
               ),
             ),

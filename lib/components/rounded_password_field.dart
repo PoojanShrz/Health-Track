@@ -25,10 +25,13 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
     });
   }
 
+  TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextFormField(
+        controller: _passwordController,
         obscureText: this._isHidden,
         onChanged: widget.onChanged,
         cursorColor: kPrimaryColor,

@@ -36,9 +36,9 @@ class _DashState extends State<Dash> {
                   forceElevated: true,
                   elevation: 10,
                   collapsedHeight: 140,
-                  pinned: true,
+                  // pinned: true,
                   floating: true,
-                  snap: true,
+                  // s nap: true,
                   expandedHeight: 190.0,
                   flexibleSpace: FlexibleSpaceBar(
                     background: FlexibleAppBar(),

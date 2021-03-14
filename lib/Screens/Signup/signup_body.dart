@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import 'package:health_track/Screens/Login/login_screen.dart';
 import 'package:health_track/Screens/Signup/components/background.dart';
 import 'package:health_track/Screens/Signup/components/or_divider.dart';
@@ -9,6 +8,7 @@ import 'package:health_track/components/already_have_an_account_check.dart';
 import 'package:health_track/components/rounded%20button.dart';
 import 'package:health_track/components/rounded_input_field.dart';
 import 'package:health_track/components/rounded_password_field.dart';
+import 'package:health_track/services/NetworkHandler.dart';
 
 class SignUpBody extends StatefulWidget {
   @override
@@ -17,6 +17,9 @@ class SignUpBody extends StatefulWidget {
 
 class _SignUpBodyState extends State<SignUpBody> {
   var email, password;
+  NetworkHandler networkHandler = NetworkHandler();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +53,12 @@ class _SignUpBodyState extends State<SignUpBody> {
             RoundedButton(
               text: "SIGN UP",
               press: () {
+                Map<String, String> data = {
+                  "email": _emailController.text,
+                  "password": _passwordController.text,
+                };
+                print(data);
+                // networkHandler.get("");
                 // AuthService().addUser(email, password).then((value) {
                 //   if (value.data['success']) {
                 //     Fluttertoast.showToast(
