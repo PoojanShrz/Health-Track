@@ -43,7 +43,7 @@ class FlexibleAppBar extends StatelessWidget {
               ),
               Container(
                 child: Text(
-                  "Good Day, " + name + "!",
+                  "Good Day, Poozan Shrz !",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headline5.copyWith(
                         fontWeight: FontWeight.w600,

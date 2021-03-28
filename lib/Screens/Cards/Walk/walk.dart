@@ -18,7 +18,7 @@ class _PedometerCountState extends State<PedometerCount> {
   Stream<StepCount> _stepCountStream;
   Stream<PedestrianStatus> _pedestrianStatusStream;
   String _status = 'Rest';
-  double steps = 0.0;
+  double _steps = 0.0;
 
   @override
   void initState() {
@@ -30,7 +30,7 @@ class _PedometerCountState extends State<PedometerCount> {
     print(event);
     if (mounted == true) {
       setState(() {
-        steps = event.steps;
+        _steps = event.steps.toDouble();
       });
     }
   }
@@ -58,7 +58,7 @@ class _PedometerCountState extends State<PedometerCount> {
     print('onStepCountError: $error');
     if (mounted == true) {
       setState(() {
-        steps = 'Step Count not available' as double;
+        _steps = "Step Count not available" as double;
       });
     }
   }
@@ -78,7 +78,7 @@ class _PedometerCountState extends State<PedometerCount> {
   void onVolumeChanged(double value) {
     if (mounted == true) {
       setState(() {
-        steps = value;
+        _steps = value;
       });
     }
   }
@@ -127,7 +127,7 @@ class _PedometerCountState extends State<PedometerCount> {
                       ),
                       pointers: <GaugePointer>[
                         RangePointer(
-                            value: steps,
+                            value: _steps,
                             width: 15,
                             onValueChanged: onVolumeChanged,
                             enableAnimation: true,
@@ -142,7 +142,7 @@ class _PedometerCountState extends State<PedometerCount> {
                               0.75
                             ])),
                         MarkerPointer(
-                          value: steps,
+                          value: _steps,
                           onValueChanged: onVolumeChanged,
                           enableAnimation: true,
                           enableDragging: false,
@@ -159,7 +159,7 @@ class _PedometerCountState extends State<PedometerCount> {
                           axisValue: 0.2,
                           positionFactor: 0,
                           widget: Text(
-                            steps.toInt().toString(),
+                            _steps.toInt().toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 50,

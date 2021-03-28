@@ -16,7 +16,7 @@ class _PedoGaugeState extends State<PedoGauge> {
   Stream<StepCount> _stepCountStream;
   Stream<PedestrianStatus> _pedestrianStatusStream;
   String status = 'Rest';
-  double steps = 0.0;
+  double _steps = 0.0;
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _PedoGaugeState extends State<PedoGauge> {
     print(event);
     if (mounted == true) {
       setState(() {
-        steps = event.steps;
+        _steps = event.steps.toDouble();
       });
     }
   }
@@ -56,7 +56,7 @@ class _PedoGaugeState extends State<PedoGauge> {
     print('onStepCountError: $error');
     if (mounted == true) {
       setState(() {
-        steps = 'Step Count not available' as double;
+        _steps = 'Step Count not available' as double;
       });
     }
   }
@@ -76,7 +76,7 @@ class _PedoGaugeState extends State<PedoGauge> {
   void onStepsChanged(double value) {
     if (mounted == true) {
       setState(() {
-        steps = value;
+        _steps = value;
       });
     }
   }
@@ -115,7 +115,7 @@ class _PedoGaugeState extends State<PedoGauge> {
                                 : FontAwesomeIcons.bed,
                         size: 27,
                         color: Colors.green),
-                    Text(steps.toInt().toString(),
+                    Text(_steps.toInt().toString(),
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20)),
                     Padding(
@@ -131,7 +131,7 @@ class _PedoGaugeState extends State<PedoGauge> {
           ],
           pointers: <GaugePointer>[
             RangePointer(
-              value: steps,
+              value: _steps,
               width: 10,
               onValueChangeEnd: onStepsChanged,
               enableAnimation: true,
@@ -140,7 +140,7 @@ class _PedoGaugeState extends State<PedoGauge> {
               color: const Color(0xFFFE5943),
             ),
             MarkerPointer(
-              value: steps,
+              value: _steps,
               onValueChangeEnd: onStepsChanged,
               enableAnimation: true,
               markerHeight: 15,

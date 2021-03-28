@@ -1,13 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_track/Screens/Login/login.dart';
 import 'package:health_track/Screens/Login/login_body.dart';
 import 'package:health_track/Screens/Profile/profile_screen.dart';
+import 'package:health_track/Screens/Profile/updateprofile.dart';
 import 'package:health_track/components/buttons.dart';
 import 'package:health_track/components/dashed_divider.dart';
 import 'package:health_track/components/outlined_box.dart';
 import 'package:health_track/constants.dart';
+import 'package:health_track/services/NetworkHandler.dart';
 
 class ProfileBody extends StatefulWidget {
   @override
@@ -15,6 +18,29 @@ class ProfileBody extends StatefulWidget {
 }
 
 class _ProfileBodyState extends State<ProfileBody> {
+  NetworkHandler networkHandler = NetworkHandler();
+  Widget page = CircularProgressIndicator();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkProfile();
+  }
+
+  void checkProfile() async {
+    var response = await networkHandler
+        .get("https://serene-citadel-05489.herokuapp.com/profile/checkProfile");
+    if (response["status"] == true) {
+      setState(() {
+        page = showProfile();
+      });
+    } else {
+      setState(() {
+        page = updateButton();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,11 +78,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                             ),
                           );
                         },
-                        child: Image.asset(
-                          "assets/images/trophy.png",
-                          height: 35,
-                          width: 35,
-                        ),
+                        child: updateButton(),
                       ),
                     ),
                   ),
@@ -69,7 +91,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                   padding: const EdgeInsets.all(8.0),
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
-                    backgroundImage: NetworkImage(imageUrl),
+                    backgroundImage: NetworkHandler().getImage("PoozShrz"),
                     radius: 50,
                   ),
                 ),
@@ -77,7 +99,7 @@ class _ProfileBodyState extends State<ProfileBody> {
             ),
             SizedBox(height: 10.0),
             Container(
-              height: MediaQuery.of(context).size.height * 0.72,
+              height: MediaQuery.of(context).size.height * 0.70,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -93,16 +115,16 @@ class _ProfileBodyState extends State<ProfileBody> {
                     // mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: Text(
-                          name,
+                          "Username",
                           style: TextStyle(color: Colors.black, fontSize: 20),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: OutlinedBox(
-                          text: email,
+                          text: "poozshrz@gmail.com",
                           color: Colors.black,
                           fontsize: 17,
                           press: () {},
@@ -127,19 +149,11 @@ class _ProfileBodyState extends State<ProfileBody> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 130),
+                  SizedBox(height: 150),
                   Divider(
                     color: Colors.grey[400],
                     height: 5,
                     thickness: 2,
-                  ),
-                  FNButton(
-                    txt: 'Update Profile',
-                    fontsize: 17,
-                    color: kDashboardPurple,
-                    press: () {
-                      Navigator.pop(context);
-                    },
                   ),
                   FNButton(
                     txt: 'Log out',
@@ -170,11 +184,30 @@ class _ProfileBodyState extends State<ProfileBody> {
         ));
   }
 
+  Widget updateButton() {
+    return IconButton(
+      icon: FaIcon(FontAwesomeIcons.userEdit),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => UpdateProfile(),
+          ),
+        );
+      },
+      color: Colors.white,
+    );
+  }
+
   Future<void> signOutGoogle() async {
     try {
       await FirebaseAuth.instance.signOut();
     } catch (e) {
       print(e); // TODO: show dialog with error
     }
+  }
+
+  Widget showProfile() {
+    return Center(child: Text("Profile Data is avaliable"));
   }
 }

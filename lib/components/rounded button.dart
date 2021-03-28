@@ -30,6 +30,7 @@ class _RoundedButtonState extends State<RoundedButton> {
         borderRadius: BorderRadius.circular(29),
         child: FlatButton(
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+
           color: widget.color,
           // style: ButtonStyle(),
           onPressed: widget.press,

@@ -5,6 +5,8 @@ import 'package:health_track/Screens/Cards/BloodGlucose/bloodglucose.dart';
 import 'package:health_track/Screens/Cards/BloodPressure/bp_screen.dart';
 import 'package:health_track/Screens/Cards/Height/height.dart';
 import 'package:health_track/Screens/Cards/Walk/walk.dart';
+import 'package:health_track/Screens/Cards/Water/backup_water.dart';
+import 'package:health_track/Screens/Cards/Water/water.dart';
 import 'package:health_track/Screens/Dashboard/components/appbar.dart';
 import 'package:health_track/Screens/Dashboard/components/categorycard.dart';
 import 'package:health_track/Screens/Dashboard/components/flexible_appbar.dart';
@@ -107,22 +109,29 @@ class _DashState extends State<Dash> {
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                       shape: CircleBorder(),
-                                      primary: Colors.green),
-                                  child: FaIcon(FontAwesomeIcons.plus),
+                                      primary: Colors.red),
+                                  child: FaIcon(FontAwesomeIcons.minus),
                                   onPressed: () {},
                                 ),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                       shape: CircleBorder(),
-                                      primary: Colors.red),
-                                  child: FaIcon(FontAwesomeIcons.minus),
+                                      primary: Colors.green),
+                                  child: FaIcon(FontAwesomeIcons.plus),
                                   onPressed: () {},
                                 ),
                               ],
                             )
                           ],
                         ),
-                        press: () {},
+                        press: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BWater(),
+                            ),
+                          );
+                        },
                         img: "assets/images/water.png",
                       ),
                       CategoryCard(
@@ -173,10 +182,8 @@ class _DashState extends State<Dash> {
                           ],
                         ),
                         press: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => BloodGlucose()));
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Water()));
                         },
                         img: "assets/images/glucometer1.png",
                       ),
