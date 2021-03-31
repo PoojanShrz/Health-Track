@@ -19,6 +19,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   final _globalkey = GlobalKey<FormState>();
   TextEditingController _name = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
   TextEditingController _dob = TextEditingController();
   TextEditingController _gender = TextEditingController();
   TextEditingController _weight = TextEditingController();
@@ -70,19 +71,18 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       if (_globalkey.currentState.validate()) {
                         Map<String, String> data = {
                           "name": _name.text,
-                          "dob": _dob.text,
+                          "email": _emailController.text,
+                          "DOB": _dob.text,
                           "gender": _gender.text,
                           "weight": _weight.text,
                         };
-                        var response = await networkHandler.post(
-                            "https://serene-citadel-05489.herokuapp.com/profile/add",
-                            data);
+                        var response =
+                            await networkHandler.post("/profile/add", data);
                         if (response.statusCode == 200 ||
                             response.statusCode == 201) {
                           if (_imageFile != null) {
                             var imageResponse = await networkHandler.patchImage(
-                                "https://serene-citadel-05489.herokuapp.com/profile/add/image",
-                                _imageFile.path);
+                                "/profile/add/image", _imageFile.path);
                             if (imageResponse.statusCode == 200) {
                               setState(() {
                                 circular = false;

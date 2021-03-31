@@ -81,9 +81,8 @@ class _SignUpBodyState extends State<SignUpBody> {
                             "password": _passwordController.text,
                           };
                           print(data);
-                          var responseRegister = await networkHandler.post(
-                              "https://serene-citadel-05489.herokuapp.com/user/register",
-                              data);
+                          var responseRegister =
+                              await networkHandler.post("/user/register", data);
 
                           //Login Logic added here
                           if (responseRegister.statusCode == 200 ||
@@ -92,9 +91,8 @@ class _SignUpBodyState extends State<SignUpBody> {
                               "username": _usernameController.text,
                               "password": _passwordController.text,
                             };
-                            var response = await networkHandler.post(
-                                "https://serene-citadel-05489.herokuapp.com/user/register/user/login",
-                                data);
+                            var response =
+                                await networkHandler.post("/user/login", data);
 
                             if (response.statusCode == 200 ||
                                 response.statusCode == 201) {

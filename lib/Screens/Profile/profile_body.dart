@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_track/Model/profileModel.dart';
 import 'package:health_track/Screens/Login/login.dart';
 import 'package:health_track/Screens/Login/login_body.dart';
 import 'package:health_track/Screens/Profile/profile_screen.dart';
@@ -18,27 +19,38 @@ class ProfileBody extends StatefulWidget {
 }
 
 class _ProfileBodyState extends State<ProfileBody> {
+  bool circular = true;
   NetworkHandler networkHandler = NetworkHandler();
+  ProfileModel profileModel = ProfileModel();
   Widget page = CircularProgressIndicator();
+  Image _imagefile;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     checkProfile();
+    fetchData();
   }
 
   void checkProfile() async {
-    var response = await networkHandler
-        .get("https://serene-citadel-05489.herokuapp.com/profile/checkProfile");
+    var response = await networkHandler.get("/profile/checkProfile");
     if (response["status"] == true) {
       setState(() {
-        page = showProfile();
+        page = ProfileBody();
       });
     } else {
       setState(() {
-        page = updateButton();
+        page = button();
       });
     }
+  }
+
+  void fetchData() async {
+    var response = await networkHandler.get("/profile/getData");
+    setState(() {
+      profileModel = ProfileModel.fromJson(response["data"]);
+      circular = false;
+    });
   }
 
   @override
@@ -78,7 +90,18 @@ class _ProfileBodyState extends State<ProfileBody> {
                             ),
                           );
                         },
-                        child: updateButton(),
+                        child: IconButton(
+                          icon: FaIcon(FontAwesomeIcons.userEdit),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => UpdateProfile(),
+                              ),
+                            );
+                          },
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -91,7 +114,9 @@ class _ProfileBodyState extends State<ProfileBody> {
                   padding: const EdgeInsets.all(8.0),
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
-                    backgroundImage: NetworkHandler().getImage("PoozShrz"),
+                    backgroundImage: _imagefile == null
+                        ? AssetImage("assets/images/user.png")
+                        : NetworkHandler().getImage(profileModel.username),
                     radius: 50,
                   ),
                 ),
@@ -107,95 +132,133 @@ class _ProfileBodyState extends State<ProfileBody> {
                     topLeft: Radius.circular(50.0),
                     topRight: Radius.circular(50.0)),
               ),
-              child: ListView(
-                primary: false,
-                padding: EdgeInsets.only(left: 25, right: 20),
-                children: [
-                  Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text(
-                          "Username",
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+              child: circular
+                  ? Center(child: CircularProgressIndicator())
+                  : ListView(
+                      primary: false,
+                      padding: EdgeInsets.only(left: 25, right: 20),
+                      children: [
+                        Column(
+                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Text(
+                                profileModel.username,
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 25),
+                              ),
+                            ),
+                            DashedDivider(
+                              text: 'User Information',
+                              color: Colors.grey[700],
+                              fontsize: 15,
+                            ),
+                            OutlinedBox(
+                              text: "Name : " + profileModel.name,
+                              color: Colors.black,
+                              fontsize: 17,
+                              press: () {},
+                            ),
+                            OutlinedBox(
+                              text: "Date of Birth : " + profileModel.DOB,
+                              color: Colors.black,
+                              fontsize: 17,
+                              press: () {},
+                            ),
+                            OutlinedBox(
+                              text: "Gender : " + profileModel.gender,
+                              color: Colors.black,
+                              fontsize: 17,
+                              press: () {},
+                            ),
+                            OutlinedBox(
+                              text: "Weight : " + profileModel.weight,
+                              color: Colors.black,
+                              fontsize: 17,
+                              press: () {},
+                            ),
+                          ],
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: OutlinedBox(
-                          text: "poozshrz@gmail.com",
-                          color: Colors.black,
+                        SizedBox(height: 80),
+                        Divider(
+                          color: Colors.grey[400],
+                          height: 5,
+                          thickness: 2,
+                        ),
+                        FNButton(
+                          txt: 'Log out',
                           fontsize: 17,
-                          press: () {},
-                        ),
-                      ),
-                      DashedDivider(
-                        text: 'User Information',
-                        color: Colors.grey[700],
-                        fontsize: 15,
-                      ),
-                      OutlinedBox(
-                        text: "Gender",
-                        color: Colors.black,
-                        fontsize: 17,
-                        press: () {},
-                      ),
-                      OutlinedBox(
-                        text: "Date of Birth",
-                        color: Colors.black,
-                        fontsize: 17,
-                        press: () {},
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 150),
-                  Divider(
-                    color: Colors.grey[400],
-                    height: 5,
-                    thickness: 2,
-                  ),
-                  FNButton(
-                    txt: 'Log out',
-                    fontsize: 17,
-                    color: kDashboardPurple,
-                    press: () {
-                      signOutGoogle();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return LoginBody();
+                          color: kDashboardPurple,
+                          press: () {
+                            signOutGoogle();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return LoginBody();
+                                },
+                              ),
+                            );
+                            Fluttertoast.showToast(
+                                msg: 'Logged Out',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Colors.green,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
                           },
                         ),
-                      );
-                      Fluttertoast.showToast(
-                          msg: 'Logged Out',
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          backgroundColor: Colors.green,
-                          textColor: Colors.white,
-                          fontSize: 16.0);
-                    },
-                  ),
-                ],
-              ),
+                      ],
+                    ),
             ),
           ],
         ));
   }
 
-  Widget updateButton() {
-    return IconButton(
-      icon: FaIcon(FontAwesomeIcons.userEdit),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => UpdateProfile(),
+  Widget button() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 70),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            "Tap to button to add profile data",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.deepOrange,
+              fontSize: 18,
+            ),
           ),
-        );
-      },
-      color: Colors.white,
+          SizedBox(
+            height: 30,
+          ),
+          InkWell(
+            onTap: () => {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => UpdateProfile()))
+            },
+            child: Container(
+              height: 60,
+              width: 150,
+              decoration: BoxDecoration(
+                color: Colors.blueGrey,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Center(
+                child: Text(
+                  "Add Proile",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

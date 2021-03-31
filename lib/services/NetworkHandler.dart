@@ -12,7 +12,7 @@ class NetworkHandler {
 
   Future get(String url) async {
     String token = await storage.read(key: "token");
-    // url = formater(url);
+    url = formater(url);
     // /user/register
     var response = await http.get(
       Uri.parse(url),
@@ -29,17 +29,21 @@ class NetworkHandler {
 
   Future<http.Response> post(String url, Map<String, String> body) async {
     String token = await storage.read(key: "token");
-    // url = formater(url);
-    var response = await http.post(Uri.parse(url),
-        headers: {
-          "Content-type": "application/json",
-          "Authorization": "Bearer $token"
-        },
-        body: json.encode(body));
+    url = formater(url);
+    log.d(body);
+    var response = await http.post(
+      Uri.parse(url),
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+      body: json.encode(body),
+    );
     return response;
   }
 
   Future<http.StreamedResponse> patchImage(String url, String filepath) async {
+    url = formater(url);
     String token = await storage.read(key: "token");
     var request = http.MultipartRequest('PATCH', Uri.parse(url));
     request.files.add(await http.MultipartFile.fromPath("img", filepath));
@@ -55,8 +59,9 @@ class NetworkHandler {
     return baseurl + url;
   }
 
-  NetworkImage getImage(String username) {
-    String url = formater("/uploads//$username.jpg");
+  NetworkImage getImage(String imageName) {
+    String url = formater(
+        "https://serene-citadel-05489.herokuapp.com/uploads//$imageName.jpg");
     return NetworkImage(url);
   }
 }

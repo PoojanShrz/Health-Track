@@ -77,9 +77,8 @@ class _LoginBodyState extends State<LoginBody> {
                           "username": _usernameController.text,
                           "password": _passwordController.text,
                         };
-                        var response = await networkHandler.post(
-                            "https://serene-citadel-05489.herokuapp.com/user/login",
-                            data);
+                        var response =
+                            await networkHandler.post("/user/login", data);
 
                         if (response.statusCode == 200 ||
                             response.statusCode == 201) {
